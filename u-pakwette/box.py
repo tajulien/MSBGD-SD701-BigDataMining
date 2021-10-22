@@ -21,7 +21,7 @@ get_all_day_num_month = {}
 years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
 # months = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
 #           'decembre']
-months = ['avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
+months = ['mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
           'decembre']
 
 for year in years:
@@ -250,11 +250,5 @@ def parse_master(year, month, day):
         envoi_sql(record_to_insert)
 
 
-for key, value in get_all_days[2013].items():
-    print(key, value)
-    for i in range(1, value+1):
-        time.sleep(10)
-        print(f'Parsing 2013 - {key} - {i}')
-        if i ==1:
-            i = '1er'
-        parse_master('2013', key, i)
+
+parse_master('2013', 'mars', '31')
