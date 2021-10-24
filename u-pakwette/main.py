@@ -180,7 +180,7 @@ def get_the_page(yir, montz, day):
 
     # print(data_day)
 
-    with open(f'{os.getcwd()}/json/{yir}{montz}{day}.json', 'w+') as json_file:
+    with open(f'{os.getcwd()}/json/{yir}/{yir}{montz}{day}.json', 'w+') as json_file:
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
         #print(f'{current_time} data printed')
@@ -250,11 +250,11 @@ def parse_master(year, month, day):
         envoi_sql(record_to_insert)
 
 
-for key, value in get_all_days[2017].items():
+for key, value in get_all_days[2019].items():
     print(key, value)
     for i in range(1, value+1):
         time.sleep(10)
-        print(f'Parsing 2017 - {key} - {i}')
+        print(f'Parsing 2019 - {key} - {i}')
         if i ==1:
             i = '1er'
-        parse_master('2017', key, i)
+        parse_master('2019', key, i)
