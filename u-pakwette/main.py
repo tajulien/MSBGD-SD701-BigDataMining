@@ -19,9 +19,9 @@ from calendar import monthrange
 get_all_days = {}
 get_all_day_num_month = {}
 years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-# months = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
+months = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
 #           'decembre']
-months = ['avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
+#months = ['octobre', 'novembre',
           'decembre']
 
 for year in years:
@@ -54,7 +54,7 @@ def get_the_page(yir, montz, day):
     ####################################################################################################################
     iteration = len(tr_elements) - 1
     for i in range(1, iteration + 1):
-        print(tr_elements[i])
+        #print(tr_elements[i])
         ################################################################################################################
         # Heure
         ################################################################################################################
@@ -232,7 +232,6 @@ def parse_master(year, month, day):
     one_test = get_the_page(year, month, day)
     record_to_insert = []
     for i in range(0, len(one_test[0])):
-
         e = months.index(month) + 1
         if day == '1er':
             day = "01"
@@ -244,17 +243,18 @@ def parse_master(year, month, day):
                       one_test[0][f'{i:02d}h']['t_res'], one_test[0][f'{i:02d}h']['rad'].replace(u'\xa0', u' '),
                       one_test[0][f'{i:02d}h']['rose'], one_test[0][f'{i:02d}h']['pression'],
                       one_test[0][f'{i:02d}h']['visi'])
+            # print(touple)
             record_to_insert.append(touple)
     time.sleep(2)
     if SEND_SQL:
         envoi_sql(record_to_insert)
 
 
-for key, value in get_all_days[2013].items():
+for key, value in get_all_days[2017].items():
     print(key, value)
     for i in range(1, value+1):
         time.sleep(10)
-        print(f'Parsing 2013 - {key} - {i}')
+        print(f'Parsing 2017 - {key} - {i}')
         if i ==1:
             i = '1er'
-        parse_master('2013', key, i)
+        parse_master('2017', key, i)
