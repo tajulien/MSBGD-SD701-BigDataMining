@@ -20,9 +20,9 @@ get_all_days = {}
 get_all_day_num_month = {}
 years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
 months = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
-#           'decembre']
-#months = ['octobre', 'novembre',
           'decembre']
+# months = ['octobre', 'novembre',
+#         'decembre']
 
 for year in years:
     get_all_days[year] = {}
@@ -54,7 +54,7 @@ def get_the_page(yir, montz, day):
     ####################################################################################################################
     iteration = len(tr_elements) - 1
     for i in range(1, iteration + 1):
-        #print(tr_elements[i])
+        # print(tr_elements[i])
         ################################################################################################################
         # Heure
         ################################################################################################################
@@ -82,13 +82,13 @@ def get_the_page(yir, montz, day):
         if tr_elements[i].find(tags_precip) != -1:
             precip = tr_elements[i][tr_elements[i].find(tags_precip) + len(tags_precip):]
             precip = precip[:precip.find("<")]
-            if len(precip) > 6 or precip == '' or precip=='\n':
+            if len(precip) > 6 or precip == '' or precip == '\n':
                 tags_precip = 'minutes.\">'
                 precip = tr_elements[i][tr_elements[i].find(tags_precip) + len(tags_precip):]
                 precip = precip[:precip.find("<")].strip(' ')
                 if len(precip) > 6:
-                    tags_precip= "<span class=\"tab-units-v\">mm/1h"
-                    precip = tr_elements[i][tr_elements[i].find(tags_precip)-5:]
+                    tags_precip = "<span class=\"tab-units-v\">mm/1h"
+                    precip = tr_elements[i][tr_elements[i].find(tags_precip) - 5:]
                     precip = precip[precip.find(">"):]
                     precip = precip[1:precip.find("<")].strip(' ')
         else:
@@ -172,6 +172,17 @@ def get_the_page(yir, montz, day):
             visi = tr_elements[i][-150:]
             visi = visi[visi.find(tags_visi) + len(tags_visi):]
             visi = visi[:visi.find("<")].strip(' ')
+            if len(visi) > 4 or visi == '' or visi == '\n':
+                tags_visi = 'hPa/3h"/></td><td>'
+                visi = tr_elements[i][tr_elements[i].find(tags_visi) + len(tags_visi):]
+                visi = visi[:visi.find("<")].strip(' ')
+                try:
+                    float(visi)
+                except ValueError:
+                    tags_visi = "<span class=\"tab-units-v\">km<"
+                    visi = tr_elements[i][tr_elements[i].find(tags_visi) - 5:]
+                    visi = visi[visi.find(">"):]
+                    visi = visi[1:visi.find("<")].strip(' ')
         else:
             visi = "NaN"
 
@@ -183,12 +194,12 @@ def get_the_page(yir, montz, day):
     with open(f'{os.getcwd()}/json/{yir}/{yir}{montz}{day}.json', 'w+') as json_file:
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
-        #print(f'{current_time} data printed')
+        # print(f'{current_time} data printed')
         json.dump(data_day, json_file)
     if day == '1er':
         day = '1'
     if int(day) < 10:
-        day = '0'+str(day)
+        day = '0' + str(day)
     unique_id = str(yir) + str(montz) + str(day)
 
     return [data_day, unique_id]
@@ -250,11 +261,11 @@ def parse_master(year, month, day):
         envoi_sql(record_to_insert)
 
 
-for key, value in get_all_days[2019].items():
+for key, value in get_all_days[2020].items():
     print(key, value)
-    for i in range(1, value+1):
+    for i in range(1, value + 1):
         time.sleep(10)
-        print(f'Parsing 2019 - {key} - {i}')
-        if i ==1:
+        print(f'Parsing 2020 - {key} - {i}')
+        if i == 1:
             i = '1er'
-        parse_master('2019', key, i)
+        parse_master('2020', key, i)

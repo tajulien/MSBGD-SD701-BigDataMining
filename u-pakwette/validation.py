@@ -1,4 +1,5 @@
 import time
+import os
 from datetime import datetime
 import mysql.connector
 from mysql.connector import Error
@@ -15,7 +16,9 @@ pd.set_option('display.width', desired_width)
 np.set_printoptions(linewidth=desired_width)
 pd.set_option('display.max_columns',13)
 DEBUG = True
-
+date1 = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+DEBUG_FILE = fr'{os.getcwd()}/debug/result_scan-{date1}'
+VISIBILITY_ERROR = []
 ########################################################################################################################
 # global var
 ########################################################################################################################
@@ -69,6 +72,10 @@ def checking_temp(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -92,6 +99,10 @@ def checking_rain(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -115,6 +126,10 @@ def checking_wind(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -138,6 +153,10 @@ def checking_storm(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -161,6 +180,10 @@ def checking_humidity(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -184,6 +207,10 @@ def checking_feeling(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -207,6 +234,10 @@ def checking_radiation(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -230,6 +261,10 @@ def checking_rose(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -253,6 +288,10 @@ def checking_pressure(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
                     print(datas.loc[[i]])
                 index_errors.append(i)
@@ -265,6 +304,7 @@ def checking_pressure(datas):
             print(f'There are {len(index_errors)} errors in pressure, this dataframe needs to be fixed!')
         return False
 
+
 def checking_visibility(datas):
     index_errors = []
     for i, item in enumerate(datas['visibilite']):
@@ -275,8 +315,15 @@ def checking_visibility(datas):
                 pass
             else:
                 if DEBUG:
+                    with open(DEBUG_FILE, 'a+') as f:
+                        f.write('ERROR at index {}: {!r}\n'.format(i, item))
+                        f.write(str(datas.loc[[i]]))
+                        f.write('\n')
                     print('ERROR at index {}: {!r}'.format(i, item))
-                    print(datas.loc[[i]])
+                    print(datas.unique_id.loc[[i]])
+                    with open('visibility_errors.txt', 'a+') as fd:
+                        fd.write(datas.unique_id.loc[[i]].values[0])
+                        fd.write('\n')
                 index_errors.append(i)
     if not index_errors:
         if DEBUG:
@@ -302,9 +349,13 @@ def checking_datas(datas):
         print(f'Good job boy, all clean !')
 
 
-def validate_datas():
-    datas = loading_datas('2013', 'janvier')
+def validate_datas(year, month):
+    datas = loading_datas(year, month)
     checking_datas(datas)
 
 
-validate_datas()
+for year in YEARS:
+    for month in MONTHS:
+        validate_datas(year, month)
+
+## Too many visibility errors, got to improve my parsing algorithm and then update the database
