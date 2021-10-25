@@ -19,10 +19,11 @@ DEBUG = True
 date1 = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
 DEBUG_FILE = fr'{os.getcwd()}/debug/result_scan-{date1}'
 VISIBILITY_ERROR = []
+
 ########################################################################################################################
 # global var
 ########################################################################################################################
-YEARS = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+YEARS = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 MONTHS = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
            'decembre']
 
