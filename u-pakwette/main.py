@@ -1,4 +1,8 @@
+import os
+
 import json
+import re
+import time
 from datetime import datetime
 
 import requests
@@ -17,6 +21,8 @@ get_all_day_num_month = {}
 years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
 months = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre',
           'decembre']
+# months = ['octobre', 'novembre',
+#         'decembre']
 
 for year in years:
     get_all_days[year] = {}
@@ -38,6 +44,7 @@ def get_parsed_page(url):
 def get_the_page(yir, montz, day):
     data_day = {}
     link = f'https://www.infoclimat.fr/observations-meteo/archives/{day}/{montz}/{yir}/paris-montsouris/07156.html'
+    print(link)
     home = get_parsed_page(link)
     tr_elements = home.find_all('table')[2].find_all('tr')
     tr_elements = [str(tr) for tr in tr_elements]
@@ -47,7 +54,7 @@ def get_the_page(yir, montz, day):
     ####################################################################################################################
     iteration = len(tr_elements) - 1
     for i in range(1, iteration + 1):
-
+        # print(tr_elements[i])
         ################################################################################################################
         # Heure
         ################################################################################################################
@@ -70,14 +77,20 @@ def get_the_page(yir, montz, day):
         ################################################################################################################
         # Précipitations
         ################################################################################################################
+
         tags_precip = '</td><td>'
         if tr_elements[i].find(tags_precip) != -1:
             precip = tr_elements[i][tr_elements[i].find(tags_precip) + len(tags_precip):]
             precip = precip[:precip.find("<")]
-            if precip == '':
+            if len(precip) > 6 or precip == '' or precip == '\n':
                 tags_precip = 'minutes.\">'
                 precip = tr_elements[i][tr_elements[i].find(tags_precip) + len(tags_precip):]
                 precip = precip[:precip.find("<")].strip(' ')
+                if len(precip) > 6:
+                    tags_precip = "<span class=\"tab-units-v\">mm/1h"
+                    precip = tr_elements[i][tr_elements[i].find(tags_precip) - 5:]
+                    precip = precip[precip.find(">"):]
+                    precip = precip[1:precip.find("<")].strip(' ')
         else:
             precip = "NaN"
         ################################################################################################################
@@ -147,17 +160,29 @@ def get_the_page(yir, montz, day):
         if tr_elements[i].find(tags_pression) != -1:
             pression = tr_elements[i][:tr_elements[i].find(tags_pression)]
             pression = pression[-6:].strip(' ')
+            pression = re.sub(r'\b[^\d\W]+\b>', '', pression)
         else:
             pression = "NaN"
 
         ################################################################################################################
         # Visibilité
         ################################################################################################################
-        tags_visi = '</td><td>'
+        tags_visi = '<td style="/*background-color:rgba(0,0,0,0.1)*/">'
         if tr_elements[i].find(tags_visi) != -1:
             visi = tr_elements[i][-150:]
             visi = visi[visi.find(tags_visi) + len(tags_visi):]
             visi = visi[:visi.find("<")].strip(' ')
+            if len(visi) > 4 or visi == '' or visi == '\n':
+                tags_visi = 'hPa/3h"/></td><td>'
+                visi = tr_elements[i][tr_elements[i].find(tags_visi) + len(tags_visi):]
+                visi = visi[:visi.find("<")].strip(' ')
+                try:
+                    float(visi)
+                except ValueError:
+                    tags_visi = "<span class=\"tab-units-v\">km<"
+                    visi = tr_elements[i][tr_elements[i].find(tags_visi) - 5:]
+                    visi = visi[visi.find(">"):]
+                    visi = visi[1:visi.find("<")].strip(' ')
         else:
             visi = "NaN"
 
@@ -166,12 +191,15 @@ def get_the_page(yir, montz, day):
 
     # print(data_day)
 
-    with open(f'{yir}{montz}{day}.json', 'w+') as json_file:
+    with open(f'{os.getcwd()}/json/{yir}/{yir}{montz}{day}.json', 'w+') as json_file:
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
-        print(f'{current_time} data printed')
+        # print(f'{current_time} data printed')
         json.dump(data_day, json_file)
-
+    if day == '1er':
+        day = '1'
+    if int(day) < 10:
+        day = '0' + str(day)
     unique_id = str(yir) + str(montz) + str(day)
 
     return [data_day, unique_id]
@@ -211,21 +239,33 @@ def envoi_sql(record_to_insert):
 SEND_SQL = True
 
 
-def parse_master():
-    one_test = get_the_page('2020', 'fevrier', 14)
+def parse_master(year, month, day):
+    one_test = get_the_page(year, month, day)
     record_to_insert = []
     for i in range(0, len(one_test[0])):
-        e = months.index(one_test[1][4:-2]) + 1
-        date = one_test[1][:4] + str(f'{e:02d}') + one_test[1][-2:]
-        touple = (one_test[1] + f'-{i:02d}', date, f'{i:02d}', one_test[0][f'{i:02d}h']['temp'],
-                  one_test[0][f'{i:02d}h']['precip'], one_test[0][f'{i:02d}h']['vent'],
-                  one_test[0][f'{i:02d}h']['rafales'], one_test[0][f'{i:02d}h']['hum'],
-                  one_test[0][f'{i:02d}h']['t_res'], one_test[0][f'{i:02d}h']['rad'].replace(u'\xa0', u' '),
-                  one_test[0][f'{i:02d}h']['rose'], one_test[0][f'{i:02d}h']['pression'],
-                  one_test[0][f'{i:02d}h']['visi'])
-        record_to_insert.append(touple)
+        e = months.index(month) + 1
+        if day == '1er':
+            day = "01"
+        date = one_test[1][:4] + str(f'{e:02d}') + str(day)
+        if f'{i:02d}h' in one_test[0].keys():
+            touple = (one_test[1] + f'-{i:02d}', date, f'{i:02d}', one_test[0][f'{i:02d}h']['temp'],
+                      one_test[0][f'{i:02d}h']['precip'], one_test[0][f'{i:02d}h']['vent'],
+                      one_test[0][f'{i:02d}h']['rafales'], one_test[0][f'{i:02d}h']['hum'],
+                      one_test[0][f'{i:02d}h']['t_res'], one_test[0][f'{i:02d}h']['rad'].replace(u'\xa0', u' '),
+                      one_test[0][f'{i:02d}h']['rose'], one_test[0][f'{i:02d}h']['pression'],
+                      one_test[0][f'{i:02d}h']['visi'])
+            # print(touple)
+            record_to_insert.append(touple)
+    time.sleep(2)
     if SEND_SQL:
         envoi_sql(record_to_insert)
 
 
-parse_master()
+for key, value in get_all_days[2020].items():
+    print(key, value)
+    for i in range(1, value + 1):
+        time.sleep(10)
+        print(f'Parsing 2020 - {key} - {i}')
+        if i == 1:
+            i = '1er'
+        parse_master('2020', key, i)
