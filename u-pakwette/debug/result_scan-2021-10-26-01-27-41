@@ -1,0 +1,21 @@
+ERROR at index 449: 'mm/1h'
+        unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+449  2013mai19-17  20130119    17  11.6  mm/1h    7   20.9       89      NaN       19      9.8   1010.4        2.3
+ERROR at index 394: 'mm/1h'
+         unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+394  2013juin17-10  20130117    10  15.9  mm/1h   17   52.6       92      NaN       NaN    14.6   1009.1        2.7
+ERROR at index 624: '/998'
+            unique_id    date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+624  2014janvier27-00  /">998    00  3.2    0     9   24.8       88      0.7       NaN     1.4     /998          0
+ERROR at index 193: 'mm/1h'
+         unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+193  2014juin09-01  2014069    01  20.1  mm/1h   11   29.9       96       27       NaN    19.4   1016.4        3.6
+ERROR at index 188: 'mm/1h'
+            unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+188  2014juillet08-20  2014078    20  14.8  mm/1h    7   25.2       88      NaN       44     12.8   1015.8          2
+ERROR at index 160: 'mm/1h'
+         unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+160  2014aout07-16  2014087    16  20.8  mm/1h    2   18.4       94       28      131     19.8   1014.7         13
+ERROR at index 282: 'mm/1h'
+              unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+282  2015septembre12-18  20150912    18  17.7  mm/1h    7   20.5       93      NaN       NaN    16.6   1010.7        1.6
