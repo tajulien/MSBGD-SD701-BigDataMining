@@ -1,28 +1,58 @@
-# **SD701 - Rapport de projet** : Qualite de l'air dans le metro parisien
+<h1 align=center><font size = 5>SD701 - Rapport de projet : prédiction du niveau de pollution dans le métro parisien</font></h1>
 
-## **1) Presentation du jeu de données principale**
+<h2>Table des matières</h2>
 
-### **Origine du jeu de données et features**
+<div class="alert alert-block alert-info" style="margin-top: 20px">
+<ol>
+    <li><a href="#ref1">Présentation du projet</a></li>
+    <li><a href="#ref2">Collecte des données</a></li>
+    <li><a href="#ref3">Nettoyage du jeu de données "qualité de l'air en station" et premières analyses</a></li>
+    <li><a href="#ref4">Nettoyage des autres jeux de données</a></li>
+    <li><a href="#ref5">Etudes de corrélations</a></li>
+    <li><a href="#ref6">Conclusion</a></li>
+</ol>
+</div>
+<hr>
 
-Le jeu de données étudié dans le cadre de ce projet est issu de l'API RATP.  
-Il contient les mesures moyennes heure par heure des indicateurs suivants :
+<h1 id="ref1">1. Présentation du projet</h1>
+
+Le but de ce projet est d'évaluer la possibilité de conduire une analyse prédictive du niveau de pollution à la station de métro Franklin Roosevelt en fonction de divers paramètres.<br>
+Le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur Github : <mark>LIEN</mark><br><br>
+Pour mener à bien cette étude, les données ci-dessous ont été collectées. Deux niveaux de précision sont disponibles : heure par heure (h) ou bien par tranche horaire par jour-type par semestre (th/jt/s). Par exemple : de 7h30 à 9h30, le samedi, au premier semestre 2021.
+- [Qualité de l'air à la station Franklin Roosevelt sur la ligne 1 (2013-2021) (h)](https://dataratp.opendatasoft.com/explore/dataset/qualite-de-lair-mesuree-dans-la-station-franklin-d-roosevelt) (*)
+- [Qualité de l'air extérieur (2017-2021) (h)](https://data-airparif-asso.opendata.arcgis.com)
+- [Données météo (2013-2021) (h)](https://www.infoclimat.fr/observations-meteo/temps-reel/paris-montsouris/07156.html)
+- [Validation aux bornes, représentant l'affluence en station (2015-2021) (th/jt/s)](https://data.iledefrance-mobilites.fr/explore/dataset/validations-sur-le-reseau-ferre-profils-horaires-par-jour-type-1er-sem/information/)
+- [Trafic ferroviaire, déterminé à partir des fréquences de passage des trains (S2 2021) (th/jt/s)](https://www.ratp.fr)
+
+<i>(*) Les données de 2 autres stations - Châtelet (ligne 4) et Auber (ligne A) - ont aussi été étudiées dans un premier temps puis écartées par la suite par manque de données.</i>
+
+<h1 id="ref2">2. Collecte des donnnées</h1>
+
+- Les données de qualité de l'air en station et de validation aux bornes sont directement disponibles au format CSV.<br>
+- Il n'existe a priori pas d'historique du trafic ferroviaire. Les données de mesure du trafic sont celles ayant cours au 2ème semestre 2021.<br>
+- Les historiques météo et de qualité de l'air extérieur ne sont pas directement accessibles, ce qui a nécessité un scrapping des données. Il s'agit de l'objet de cette partie.<br><br>
+- <mark>Données météo : ramener le dossier de Pakwette dans "Données brutes" et préciser qu'elles ont été mises sur MySQL</mark>
+- <mark>Données qualité de l'air extérieur : ramener le dossier de Sara dans "Données brutes"</mark>
+- <mark>Mettre des screenshots des sites/du code/des résultats</mark>
+
+<h1 id="ref3">3. Nettoyage du jeu de données "qualité de l'air en station" et premières analyses</h1>
+
+### &nbsp;&nbsp;&nbsp; **3.1. Présentation des features**
+
+Les données étudiées sont issues de l'API RATP.  
+Elles contiennent les mesures moyennes heure par heure des indicateurs suivants :
 - Paramètres climatiques usuels : température en °C et taux d'humidité en %
-- Indicateur du renouvellement de l'air : CO2 en ppm
-- Indicateurs de la qualité de l'air : NO, NO2 et PM10 en µg/m3
+- Indicateur de concentration de CO2 dans l'air en ppm
+- Indicateurs de la qualité de l'air : NO, NO2, PM10 et PM25 en µg/m3
 
-Ces mesures représentent 50 000 valeurs par an environ pour chaque station de métro équipée d'une station de mesure. Au total, 3 stations sont équipées de ce dispositif :
-- Auber : quai du RER A
-- Chatelet : quai du métro 4
-- Franklin Roosevelt : quai du métro 1
+La collecte de ces mesures a commencé en 2013. Au total, le jeu de données contient donc quelques 1 350 000 valeurs (450 000 par station).
 
-La collecte de ces mesures a commencée en 2013. Au total, le jeu de données contient donc quelques 1 350 000 valeurs (450 000 par station).
-
-
-### **Qualité du jeu de données**
+### &nbsp;&nbsp;&nbsp; **3.2. Qualité du jeu de données**
 
 Avant d'amorcer l'exploitation du jeu de données à proprement parler, il est nécessaire d'estimer sa qualité, à savoir principalement le nombre de valeurs exploitables par station.
 
-<p float="left">
+<p float="center">
   <img src="Pictures/Partie_1/null_param.png" width="300" />
   <img src="Pictures/Partie_1/null_station.png" width="300" /> 
   <img src="Pictures/Partie_1/null_year.png" width="300" />
@@ -37,7 +67,7 @@ Avant d'amorcer l'exploitation du jeu de données à proprement parler, il est n
 - Plus de 90% des mesures de la station Châtelet sur l'année 2018 sont inexploitables. Sur les autres années, cette station ne présente pas plus de 20% de valeurs nulles.
 - Il n'y a pas de dissymétrie au niveau du nombre de valeurs nulles par paramètre : autrement dit, on dispose d'un nombre globalement identique de valeurs exploitables pour chaque paramètre.
 
-### **Comparaison des qualités de l'air moyennes dans les 3 stations**
+### &nbsp;&nbsp;&nbsp; **3.3. Comparaison des qualités de l'air moyennes dans les 3 stations**
 
 Valeurs moyennes des paramètres sur l'ensemble du jeu de données :
 <p float="left">
@@ -49,7 +79,7 @@ Valeurs moyennes des paramètres sur l'ensemble du jeu de données :
 - La station Franklin Roosevelt est moins exposée au PM10 que Auber et Chatelet.
 - Les paramètres de température, d'humidité ainsi que la concentration en CO2 sont très proches sur les 3 stations.
 
-### **Patterns d'évolution temporelle des indicateurs de qualité de l'air**
+### &nbsp;&nbsp;&nbsp; **3.4. Patterns d'évolution temporelle des indicateurs de qualité de l'air**
 
 Courbes d'évolution moyennées sur l'ensemble des valeurs pour les 3 stations sur différentes échelles de temps.
 Dans l'ordre : 
@@ -72,22 +102,22 @@ L'objectif ici étant d'afficher l'évolution des paramètres indépendemment de
 	<img src="Pictures/Partie_1/legend_param.png" width="70" />
 </p>
 
-**Variations à court terme : au cours d'une même journée et au cours de la semaine**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Variations à court terme : au cours d'une même journée et au cours de la semaine**
 - TEMP et HUMI : pas ou peu de variations
 - CO2 et NO2 : variations non négligeables  (de l'ordre de 10-20%)
 - NO et PM10 : variations significatives (de l'ordre de 40-50%)
 
-**Variations à moyen terme : au cours de l'année**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Variations à moyen terme : au cours de l'année**
 - CO2, NO2 HUMI et PM10 : pas ou peu de variations
 - TEMP : variations saisonnières non négligeables (de l'ordre de 20%)
 - NO : variations saisonnières significatives (de l'ordre de 40%)
 
-**Variations à long terme : au fil des ans**
-- TEMP, HUMO, CO2 : pas ou peu de variations
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Variations à long terme : au fil des ans**
+- TEMP, HUMI, CO2 : pas ou peu de variations
 - PM10, NO et NO2 : tendance baissière au fil des ans
 
 Les courbes ci-dessus laissent appraître, en moyenne sur les 3 stations, des cycles d'évolution des paramètres de qualité de l'air sur différentes échelles de temps.  
-Il peut être intéressant de vérifier si chacune des stations individuellement suivent les mêmes patterns d'évolution. Les graphes ci-dessous représentent la comparaison des évolutions du paramètre NO sur les 3 stations (même échelles de temps que les graphes ci-dessus).
+Il peut être intéressant de vérifier si chacune des stations individuellement suit les mêmes patterns d'évolution. Les graphes ci-dessous représentent la comparaison des évolutions du paramètre NO sur les 3 stations (même échelle de temps que les graphes ci-dessus).
 
 <p float="left">
 	<img src="Pictures/Partie_1/weekday_par_station.png" width="450" />
@@ -102,11 +132,9 @@ Il peut être intéressant de vérifier si chacune des stations individuellement
 
 En dehors des variations années après annnées qui présentent certaines incohérences, on remarque que toutes les variations listées dans la partie précédente sont bien communes aux 3 stations et relèvent donc de phénomènes à priori généralisables.
 
-## **2) Premiers algorithmes**
+### &nbsp;&nbsp;&nbsp; **3.5. Clustering et classification :** détermination du type de jour (ouvré ou weekend) à partir des relevés de qualité de l'air
 
-### **Clustering et classification :** détermination du type de jour (ouvré ou weekend) à partir des relevés de qualité de l'air
-
-**Choix des paramètres :**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Choix des paramètres :**
 
 Les algorithmes de classification que nous connaissons (kmeans, k-voisins) sont tous deux soumis à la malédiction de la dimension car basés sur des calculs de distance. Or, si l'on voulait rassembler l'ensemble des valeurs dont on dispose pour chaque journée dans un vecteur, le vecteur obtenu aurait une taille de 24 heures * 6 paramètres = 144 variables. Il est donc fort probable que les algorithmes soient inefficaces.  
 Pour éviter ce problème, on tente de simplifier le modèle et de se ramener à des vecteurs de taille plus raisonnable. Pour cela, plusieurs approches ont été testées :
@@ -117,7 +145,7 @@ Pour éviter ce problème, on tente de simplifier le modèle et de se ramener à
 
 C'est ce jeu de donnée retravaillé que l'on va utiliser dans les deux parties suivantes.
 
-**Approche non supervisée : k-means**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Approche non supervisée : k-means**
 
 En effectuant un k-means sur des vecteurs tels qu'introduits précédemment, et en règlant le nombre de clusters sur 2, on obtient les résultats suivants :
 - Le cluster contenant le plus faible nombre de points (à priori assimilables aux jours du weekend) contient 39,4% des points (le % de réels de jours du weekend dans le dataset est de 27.7%).
@@ -128,7 +156,7 @@ En effectuant un k-means sur des vecteurs tels qu'introduits précédemment, et 
 
 La capacité du kmeans à déterminé si des mesurs viennent d'un jour ouvré ou d'un jour du weekend est donc assez limitée. On pourrait tenter d'améliorer notre capacité de classification en adoptant un modèle supervisé.
 
-**Approche supervisée : k-voisins**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Approche supervisée : k-voisins**
 
 On peut profiter de la connaissance de la date de chacun des relevés pour mettre en oeuvre un modèle d'apprentissage supervisé. On utilise le modèle des k-voisins.
 
@@ -147,13 +175,13 @@ Lors des tests effectués, on a remarqué que les performances étaient meilleur
 Bien qu'il soit intéressant de remarquer que la qualité de l'air dans le métro a une "signature" en fonction du type de jour (semaine ou weekend), cette approche n'a que peu d'intérêt en pratique car on connait toujours la date du jour : une prédiction de ce type n'est donc pas vraiment utile en pratique.
 
 
-### **Prédiction de la qualité de l'air de la station Franklin Roosevelt**
+### &nbsp;&nbsp;&nbsp; **3.5. Prédiction de la qualité de l'air de la station Franklin Roosevelt**
 
 Au vu de la qualité du jeu de données (voir partie dédiée ci-dessus), ainsi que pour diminuer le travail de collecte de données complémentaires par la suite, on choisit de se limiter aux prédictions de qualité de l'air sur la station Franklin Roosevelt.
 
 Le modèle développé ici se fixe pour objectif de prédire la valeur d'un paramètre de qualité de l'air en se basant uniquement sur l'année, le mois, le numéro du jour dans la semaine et l'heure.
 
-**Construction du modèle**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Construction du modèle**
 
 On se focalise sur un unique paramètre à la fois, mais la démarche est reproductible quel que soit le paramètre. Les éléments qui suivent se basent sur le paramètre N02.
 
@@ -169,7 +197,7 @@ Courbe d'erreur de cross-validation en fonction du paramètre k :
 
 <img src="Pictures/Partie_2/cross_val_predicteur.png" width="450" />
 
-**Performances du modèle**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Performances du modèle**
 
 En prédiction sur le jeu de test, le modèle donne un coefficient de détermination R2 de 0.55. Les performances du modèle sont donc limitées.
 
@@ -179,8 +207,7 @@ Comparons les valeurs moyennes prédites par le modèle sur les différentes éc
 
 On constate qu'en moyenne, le modèle semble plutôt bon. En revanche, si il présente un coefficient de détermination aussi faible, c'est qu'il n'est pas performant pour décrire les écarts de qualité de l'air d'un jour à l'autre, ce qui est normal car on n'a pas encore introduit de paramètres permettant par exemple de différencier deux lundis ou deux mardis.
 
-
-## **3) Enrichissement du jeu de données par des sources complémentaires en vue d'améliorer les prédictions**
+### &nbsp;&nbsp;&nbsp; **3.6. Enrichissement du jeu de données par des sources complémentaires en vue d'améliorer les prédictions**
 
 Jusqu'à présent, toutes les courbes de qualité de l'air présentées étaient des courbes moyennes obtenues à partir d'un grand nombre de valeur. Essayons maintenant de comparer l'évolution de la qualité de l'air au sein de la station Franklin Roosevelt sans moyenner les valeurs sur plusieurs jours. Par exemple, les courbes ci-dessous comparent les lundis 9 et 16 juin 2014.
 
@@ -190,15 +217,40 @@ On constate des écarts de qualité de l'air significatifs sur certaines plages 
 
 Or, dans le modèle introduit précédemment, rien ne permet justement de différencier ces deux jours : c'est donc pour cela que le modèle est limité en terme de performances. Cette analyse préliminaire met donc en évidence la nécessité d'introduire de nouvelles variables explicatives dans notre modèle, si l'on veut espérer effectuer des prédictions plus fines. On pourra également essayer d'autre modèles que les k-voisins.
 
+<h1 id="ref4">4. Nettoyage des autres jeux de données</h1>
 
-### **Collecte de données complémentaires**
+On souhaite étudier plus précisément l'influence des paramètres extérieurs (météo, qualié de l'air extérieur) et des données de fréquentation (affluence en station, trafic ferroviaire) sur la qualité de l'air dans la station.<br>
+Le fichier **4_data_ext_cleaning.ipynb** présente le processus de chargement et nettoyage des données.
 
-A vous de jouer mes petits poulets !!
+### &nbsp;&nbsp;&nbsp; **4.1. DataFrames générés**
 
+Les données retravaillées sont contenues dans 5 DataFrames différents :<br><br>
+<i><b>Qualité de l'air en station :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/fro.png"></h5><br>
+<i><b>Historique météo :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/meteo.png"></h5><br>
+<i><b>Qualité de l'air extérieur :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/poll_ext.png"></h5>
+Les valeurs affichées représentent la moyenne des mesures effectuées sur 3 stations (Paris 2, Paris 4 et Paris 6) en µg/m3<br><br>
+<i><b>Trafic ferroviaire :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/trafic.png"></h5>
+Nombre de passages de trains théoriques en station sur l'heure précédente (ex : le dimanche, 24 trains sont passés entre 00:00 et 01:00)<br><br>
+<i><b>Affluence :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/val.png"></h5>
+Taux de validation de la tranche horaire sur la journée-type (ex: les dimanches et jours fériés, pour la tranche horaire 10h30-16h30 (dont 11h fait partie), les validations représentent 1.46% du total de la journée-type)<br><br>
 
-### **Nouveaux modèles prédictifs**
+### &nbsp;&nbsp;&nbsp; **4.2. DataFrame global**
 
-Idem et envoyez moi du bois sur les scores de prédiction :)
+<i><b>DataFrame "calendrier" permettant la fusion des jeux de données précédents :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/cal.png"></h5><br>
 
+<i><b>Infos du DataFrame global :</b></i>
+<h5 align=left><img src="Pictures/Partie_4/info.png"></h5><br>
 
+Le DataFrame global une fois généré permet d'effectuer une analyse de corrélation.
 
+<h1 id="ref5">5. Etudes de corrélations</h1>
+
+xxx
+
+<h1 id="ref6">6. Conclusion</h1>
