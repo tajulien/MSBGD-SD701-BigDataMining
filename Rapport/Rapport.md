@@ -38,6 +38,9 @@ Pour mener à bien cette étude, les données ci-dessous ont été collectées. 
 
 <h1 id="ref3">3. Nettoyage du jeu de données "qualité de l'air en station" et premières analyses</h1>
 
+L'idée de cette partie est de proposer une première analyse du dataset de qualité de l'air dans le métro.<br>
+Le fichier **3_first_analysis.ipynb** présente la démarche effectuée.
+
 ### &nbsp;&nbsp;&nbsp; **3.1. Présentation des features**
 
 Les données étudiées sont issues de l'API RATP.  
@@ -251,6 +254,37 @@ Le DataFrame global une fois généré permet d'effectuer une analyse de corrél
 
 <h1 id="ref5">5. Etudes de corrélations</h1>
 
-xxx
+L'idée est de tester 3 algorithmes (régression linéaire, KNN, perceptron multicouche) et de déterminer le plus performant sur la prédiction des niveaux de pollution.<br>
+Le fichier **5_data_processing.ipynb** présente la démarche effectuée.
+
+Les données de qualité de l'air extérieur ne sont disponibles qu'à partir de fin septembre 2017. On restreint donc l'étude à la période suivant ce moment.<br>
+De plus, les lignes présentant des valeurs manquantes ont été neutralisées, amenant le nombre de valeurs par colonne à 17 555. Les variables ont par ailleurs été centrées puis réduites.
+
+L'image ci-dessous présente les résultats obtenus avec les 3 algorithmes :
+<p float="center">
+  <img src="Pictures/Partie_5/knn2017.png" width="300" />
+</p>
+
+Ces résultats moyens poussent à découper l'analyse en tranches. Une approche retenue est celle d'une analyse semestrielle :
+
+<p float="center">
+  <img src="Pictures/Partie_5/sem1.png" width="300" />
+  <img src="Pictures/Partie_5/sem2.png" width="300" /> 
+</p>
+
 
 <h1 id="ref6">6. Conclusion</h1>
+
+- L'objectif du projet était d'étudier la possibilité de prédire les niveaux de pollution dans le métro parisien en fonction de données temporelles et de données externes (trafic ferroviaire, affluence, météo et niveaux de pollution extérieure) aux stations Auber (ligne A), Châtelet (ligne 4) et Franklin-Roosevelt (ligne 1).
+- L'analyse du seul dataset de qualité de l'air à la station Franklin-Roosevelt a permis d'établir une bonne modélisation des niveaux de pollution moyens sur différentes échelles de temps (ex : sur une année particulière, un jour de semaine, une heure donnée, etc...).
+- La suite des travaux a visé à prédire les niveaux de pollution en fonction des paramètres externes. 3 Algorithmes ont été testés. Le plus efficace est l'application d'un perceptron multicouche qui donne des résultats moyens à bons en fonction de la variable prédite et de la période étudiée (ex : la prédiction du niveau de NO donne un coefficient de détermination de 0.36 au S2 2020 et 0.70 au S1 2021).
+- Plusieurs hypothèses et paramètres supplémentaires pourraient être pris en compte afin d'affiner l'analyse :
+> - Meilleure gestion des données disponibles. En particulier, le remplacement des valeurs manquantes au lieu de leur suppression, ou bien le passage à une échelle "tranche horaire" pourraient avoir un intérêt.
+> - Etude de l'influence de la baisse des niveaux de pollution au fil du temps sur le modèle. 
+> - Recherche d'une profondeur d'historique suffisante pour permettre une analyse de long terme plus précise (trafic ferroviaire, pollution extérieure en particulier)
+> - Affinage de la maille de certains paramètres (fréquentation des stations, trafic ferroviaire)
+> - Prise en compte de données annexes :
+>> - Historique des travaux
+>> - Historique des événements affectant le trafic (grèves, manifestations, confinements...)
+>> - Etat et renouvellement du matériel roulant
+>> - ...
