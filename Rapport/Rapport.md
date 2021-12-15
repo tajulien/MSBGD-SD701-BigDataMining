@@ -18,11 +18,12 @@
 
 Le but de ce projet est d'évaluer la possibilité de conduire une analyse prédictive du niveau de pollution à la station de métro Franklin Roosevelt en fonction de divers paramètres.<br>
 Le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur Github : [lien externe vers Github](https://github.com/tajulien/MSBGD-SD701-BigDataMining) <br/>
-Pour mener à bien cette étude, les données ci-dessous ont été collectées. Deux niveaux de précision sont disponibles : heure par heure (h) ou bien par tranche horaire par jour-type par semestre (th/jt/s). Par exemple : de 7h30 à 9h30, le samedi, au premier semestre 2021.
-- [Qualité de l'air à la station Franklin Roosevelt sur la ligne 1 (2013-2021) (h)](https://dataratp.opendatasoft.com/explore/dataset/qualite-de-lair-mesuree-dans-la-station-franklin-d-roosevelt) (*)
+<br/>
+Pour mener à bien cette étude, les données ci-dessous ont été collectées. Deux niveaux de précision sont disponibles : heure par heure (h) ou bien par tranche horaire par jour-type par semestre (th/jt/s). Par exemple : de 7h30 à 9h30, le samedi, au premier semestre 2021. <br/>
+- [Qualité de l'air à la station Franklin Roosevelt sur la ligne 1 (2013-2021) (h)](https://dataratp.opendatasoft.com/explore/dataset/qualite-de-lair-mesuree-dans-la-station-franklin-d-roosevelt) (*) <br/>
 - [Qualité de l'air extérieur (2017-2021) (h)](https://data-airparif-asso.opendata.arcgis.com)
-- [Données météo (2013-2021) (h)](https://www.infoclimat.fr/observations-meteo/temps-reel/paris-montsouris/07156.html)
-- [Validation aux bornes, représentant l'affluence en station (2015-2021) (th/jt/s)](https://data.iledefrance-mobilites.fr/explore/dataset/validations-sur-le-reseau-ferre-profils-horaires-par-jour-type-1er-sem/information/)
+- [Données météo (2013-2021) (h)](https://www.infoclimat.fr/observations-meteo/temps-reel/paris-montsouris/07156.html) <br/>
+- [Validation aux bornes, représentant l'affluence en station (2015-2021) (th/jt/s)](https://data.iledefrance-mobilites.fr/explore/dataset/validations-sur-le-reseau-ferre-profils-horaires-par-jour-type-1er-sem/information/) <br/>	
 - [Trafic ferroviaire, déterminé à partir des fréquences de passage des trains (S2 2021) (th/jt/s)](https://www.ratp.fr)
 
 <i>(*) Les données de 2 autres stations - Châtelet (ligne 4) et Auber (ligne A) - ont aussi été étudiées dans un premier temps puis écartées par la suite par manque de données.</i>
@@ -33,10 +34,12 @@ Pour mener à bien cette étude, les données ci-dessous ont été collectées. 
 - Il n'existe a priori pas d'historique du trafic ferroviaire. Les données de mesure du trafic sont celles ayant cours au 2ème semestre 2021.<br>
 - Les historiques météo et de qualité de l'air extérieur ne sont pas directement accessibles, ce qui a nécessité un scrapping des données. Il s'agit de l'objet de cette partie.<br><br>
 
-Afin de pouvoir récupérer les données météos, nous nosu sommes déjà penché tout d'abord sur la possibilité de recupérer via des API. Il existe plusieurs sites et parfois des très bons (type openweatherdatas) qui ont un historique complet sur chaque localisation. Malheureusement, la plupart du temps ces API n'étaient pas gratuites.
-C'est le moment où nous rappelons que le scraping c'est mal. Mais pour une utilisation scolaire non commerciale, cela fera l'affaire. Toutes les données seront supprimées après le projet.
+<div style="text-align: justify">
+Afin de pouvoir récupérer les données météos, nous nous sommes déjà penché tout d'abord sur la possibilité de recupérer via des API. Il existe plusieurs sites et parfois des très bons (type openweatherdatas) qui ont un historique complet sur chaque localisation. Malheureusement, la plupart du temps ces API n'étaient pas gratuites.
+C'est le moment où nous rappelons que le scraping c'est mal. Mais pour une utilisation scolaire non commerciale, cela fera l'affaire. Toutes les données seront supprimées après le projet. </div>	
 
-Le scraping du site météo a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes).
+<div style="text-align: justify">
+Le scraping du site météo a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes). </div>
 
 <p float="center">
   <img style="display: block; 
@@ -44,12 +47,14 @@ Le scraping du site météo a été réalisé dans la fourchette du 1er janvier 
            margin-right: auto;"
            src="Pictures/Partie_1/validation.png" width="300" />
 </p>
+<div style="text-align: center">
+* (désolé pour le zoom indispensable à la bonne visualisation de l'image) * </div>
 
-Après avoir mis en place un algorithme de validation des données, nous avons pu nettoyer les données, qui la plupart du temps étaient dûes à mauvaise mise en forme non homogène du site.
+<br/>
+Après avoir mis en place un algorithme de validation des données, nous avons pu nettoyer les données, qui la plupart du temps étaient dûes à mauvaise mise en forme non homogène du site (balises différentes entre une même ligne et colonne, ...).
 
 Nous avons par la suite exporter toutes les données sur une base de données MySQL car cela permettait de plus facilement traiter les données avec tout le monde (et cela nous permettait de travailler nos requêtes SQL).
 
-*(désolé pour le zoom indispensable à la bonne visualisation de l'image)*
 
 <p float="center">
   <img style="display: block; 
@@ -58,10 +63,10 @@ Nous avons par la suite exporter toutes les données sur une base de données My
            src="Pictures/Partie_1/mariadb.png" width="300" />
 </p>
 
-Nous avions par la suite tout l'historique météo sur Paris avec les différentes indicateurs :
-- Pluie, température, vent, rafales, humidité, température ressentie, radiation, point de rosé, presion et visibilités.
+Nous avions par la suite tout l'historique météo sur Paris avec les différents indicateurs toutes les heures depuis le 1er janvier 2013 : <br/>
+- Pluie, température, vent, rafales, humidité, température ressentie, radiation, point de rosé, pression et visibilités.
 
-Et ce, toutes les heures depuis le 1er janvier 2013. 
+. 
 
 - <mark>Données qualité de l'air extérieur : ramener le dossier de Sara dans "Données brutes"</mark>
 - <mark>Mettre des screenshots des sites/du code/des résultats</mark>
