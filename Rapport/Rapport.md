@@ -27,12 +27,30 @@ Pour mener à bien cette étude, les données ci-dessous ont été collectées. 
 
 <i>(*) Les données de 2 autres stations - Châtelet (ligne 4) et Auber (ligne A) - ont aussi été étudiées dans un premier temps puis écartées par la suite par manque de données.</i>
 
-<h1 id="ref2">2. Collecte des donnnées</h1>
+<h1 id="ref2">2. Collecte des données</h1>
 
 - Les données de qualité de l'air en station et de validation aux bornes sont directement disponibles au format CSV.<br>
 - Il n'existe a priori pas d'historique du trafic ferroviaire. Les données de mesure du trafic sont celles ayant cours au 2ème semestre 2021.<br>
 - Les historiques météo et de qualité de l'air extérieur ne sont pas directement accessibles, ce qui a nécessité un scrapping des données. Il s'agit de l'objet de cette partie.<br><br>
-- <mark>Données météo : ramener le dossier de Pakwette dans "Données brutes" et préciser qu'elles ont été mises sur MySQL</mark>
+
+Afin de pouvoir récupérer les données météos, nous nosu sommes déjà penché tout d'abord sur la possibilité de recupérer via des API. Il existe plusieurs sites et parfois des très bons (type openweatherdatas) qui ont un historique complet sur chaque localisation. Malheureusement, la plupart du temps ces API n'étaient pas gratuites.
+C'est le moment où nous rappelons que le scraping c'est mal. Mais pour une utilisation scolaire non commerciale, cela fera l'affaire. Toutes les données seront supprimées après le projet.
+
+Le scraping du site météo a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes).
+
+Après avoir mis en place un algorithme de validation des données, nous avons pu nettoyer les données, qui la plupart du temps étaient dûes à mauvaise mise en forme non homogène du site.
+
+Nous avons par la suite exporter toutes les données sur une base de données MySQL car cela permettait de plus facilement traiter les données avec tout le monde (et cela nous permettait de travailler nos requêtes SQL).
+
+<p float="center">
+  <img src="Pictures/Partie_1/mariadb.png" width="300" />
+</p>
+
+Nous avions par la suite tout l'historique météo sur Paris avec les différentes indicateurs :
+- Pluie, température, vent, rafales, humidité, température ressentie, radiation, point de rosé, presion et visibilités.
+
+Et ce, toutes les heures depuis le 1er janvier 2013. 
+
 - <mark>Données qualité de l'air extérieur : ramener le dossier de Sara dans "Données brutes"</mark>
 - <mark>Mettre des screenshots des sites/du code/des résultats</mark>
 
