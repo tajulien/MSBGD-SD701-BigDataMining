@@ -2,11 +2,11 @@ Louis BEAULIEU - Sara BOUTIGNY - Lucas MAINGUET - Quang-Vinh TA <br>
 
 <h1 align=center><font size = 5>SD701 - Rapport de projet : prédiction du niveau de pollution dans le métro parisien</font></h1>
 
-<i><b>Remarque préliminaire :</b> le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur le [repo Github accessible via ce lien](https://github.com/tajulien/MSBGD-SD701-BigDataMining). <br/>
+<i><b>Remarque préliminaire :</b> le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur le [repo Github accessible via ce lien](https://github.com/tajulien/MSBGD-SD701-BigDataMining/tree/main/Rapport). <br/>
 En particulier, les notebooks correspondant aux différentes parties sont : <br>
-- **3_first_analysis.ipynb** <br>
-- **4_data_ext_cleaning.ipynb** <br>
-- **5_data_processing.ipynb** <br>
+- **[3_first_analysis.ipynb](https://github.com/tajulien/MSBGD-SD701-BigDataMining/blob/main/Rapport/3_first_analysis.ipynb)** <br>
+- **[4_data_ext_cleaning.ipynb](https://github.com/tajulien/MSBGD-SD701-BigDataMining/blob/main/Rapport/4_data_ext_cleaning.ipynb)** <br>
+- **[5_data_processing.ipynb](https://github.com/tajulien/MSBGD-SD701-BigDataMining/blob/main/Rapport/5_data_processing.ipynb)** <br>
 </i>
 
 <h2>Table des matières</h2>
@@ -44,12 +44,12 @@ Pour mener à bien cette étude, les données ci-dessous ont été collectées. 
 Il existe plusieurs API (ex : openweatherdatas) qui disposent d'un historique complet sur chaque localisation. Malheureusement ces API sont la plupart du temps payantes.
 Puisque l'utilisation des données est ici à visée strictement pédagogique, nous avons opté pour la solution du scraping du site [https://www.infoclimat.fr](https://www.infoclimat.fr).
 
-Le contenu de l'algorithme est disponible dans le dossier : **3 - Scraping météo/**
+Le contenu de l'algorithme est disponible dans le dossier : **[3 - Scraping météo/](https://github.com/tajulien/MSBGD-SD701-BigDataMining/tree/main/Rapport/3%20-%20Scraping%20météo)**
 
 Ce scraping a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes).
 Nous avons donc procédé à un nettoyage des données. La plupart du temps, les difficultés de collecte étaient dues à une mise en forme hétérogène des différentes pages du site.
 
-Nous avons par la suite exporté toutes les données sur une base de données MySQL afin de les traiter plus facilement par la suite :
+Nous avons par la suite exporté toutes les données nettoyées sur une base de données MySQL afin de les traiter plus facilement par la suite :
 
 <p float="center">
   <img style="display: block; 
@@ -62,7 +62,7 @@ Nous avons par la suite exporté toutes les données sur une base de données My
 <h1 id="ref3">3. Nettoyage du jeu de données "qualité de l'air en station" et premières analyses</h1>
 
 L'idée de cette partie est de proposer une première analyse du dataset de qualité de l'air dans le métro.<br>
-Le fichier **3_first_analysis.ipynb** présente la démarche effectuée.
+Le fichier **[3_first_analysis.ipynb](https://github.com/tajulien/MSBGD-SD701-BigDataMining/blob/main/Rapport/3_first_analysis.ipynb)** présente la démarche effectuée.
 
 ### &nbsp;&nbsp;&nbsp; **3.1. Présentation des features**
 
@@ -246,7 +246,7 @@ Or, dans le modèle introduit précédemment, rien ne permet justement de diffé
 <h1 id="ref4">4. Nettoyage des autres jeux de données</h1>
 
 On souhaite étudier plus précisément l'influence des paramètres extérieurs (météo, qualié de l'air extérieur) et des données de fréquentation (affluence en station, trafic ferroviaire) sur la qualité de l'air dans la station.<br>
-Le fichier **4_data_ext_cleaning.ipynb** présente le processus de chargement et nettoyage des données.
+Le fichier **[4_data_ext_cleaning.ipynb](https://github.com/tajulien/MSBGD-SD701-BigDataMining/blob/main/Rapport/4_data_ext_cleaning.ipynb)** présente le processus de chargement et nettoyage des données.
 
 ### &nbsp;&nbsp;&nbsp; **4.1. DataFrames générés**
 
@@ -263,22 +263,22 @@ Les valeurs affichées représentent la moyenne des mesures effectuées sur 3 st
 Nombre de passages de trains théoriques en station sur l'heure précédente (ex : le dimanche, 24 trains sont passés entre 00:00 et 01:00)<br><br>
 <i><b>Affluence :</b></i>
 <h5 align=left><img src="0 - Pictures/Partie_4/val.png"></h5>
-Taux de validation de la tranche horaire sur la journée-type (ex: les dimanches et jours fériés, pour la tranche horaire 10h30-16h30 (dont 11h fait partie), les validations représentent 1.46% du total de la journée-type)<br><br>
+Taux de validation de la tranche horaire sur la journée-type (ex: les dimanches et jours fériés, pour la tranche horaire 10h30-16h30 (dont 11h fait partie), les validations représentent 1.46% du total de la journée-type)<br>
 
 ### &nbsp;&nbsp;&nbsp; **4.2. DataFrame global**
 
 <i><b>DataFrame "calendrier" permettant la fusion des jeux de données précédents :</b></i>
-<h5 align=left><img src="0 - Pictures/Partie_4/cal.png"></h5><br>
+<h5 align=left><img src="0 - Pictures/Partie_4/cal.png"></h5>
 
 <i><b>Infos du DataFrame global :</b></i>
-<h5 align=left><img src="0 - Pictures/Partie_4/info.png"></h5><br>
+<h5 align=left><img src="0 - Pictures/Partie_4/info.png"></h5>
 
 Le DataFrame global une fois généré permet d'effectuer une analyse de corrélation.
 
 <h1 id="ref5">5. Etudes de corrélations</h1>
 
 L'idée est de tester 3 algorithmes (régression linéaire, KNN, perceptron multicouche) et de déterminer le plus performant sur la prédiction des niveaux de pollution.<br>
-Le fichier **5_data_processing.ipynb** présente la démarche effectuée.
+Le fichier **[5_data_processing.ipynb](https://github.com/tajulien/MSBGD-SD701-BigDataMining/blob/main/Rapport/5_data_processing.ipynb)** présente la démarche effectuée.
 
 Les données de qualité de l'air extérieur ne sont disponibles qu'à partir de fin septembre 2017. On restreint donc l'étude à la période suivant ce moment.<br>
 De plus, les lignes présentant des valeurs manquantes ont été neutralisées, amenant le nombre de valeurs par colonne à 17 555. Les variables ont par ailleurs été centrées puis réduites.
