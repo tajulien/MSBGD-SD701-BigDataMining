@@ -1,4 +1,13 @@
+Louis BEAULIEU - Sara BOUTIGNY - Lucas MAINGUET - Quang-Vinh TA <br>
+
 <h1 align=center><font size = 5>SD701 - Rapport de projet : prédiction du niveau de pollution dans le métro parisien</font></h1>
+
+<i><b>Remarque préliminaire :</b> le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur le [repo Github accessible via ce lien](https://github.com/tajulien/MSBGD-SD701-BigDataMining). <br/>
+En particulier, les notebooks correspondant aux différentes parties sont : <br>
+- **3_first_analysis.ipynb** <br>
+- **4_data_ext_cleaning.ipynb** <br>
+- **5_data_processing.ipynb** <br>
+</i>
 
 <h2>Table des matières</h2>
 
@@ -17,59 +26,38 @@
 <h1 id="ref1">1. Présentation du projet</h1>
 
 Le but de ce projet est d'évaluer la possibilité de conduire une analyse prédictive du niveau de pollution à la station de métro Franklin Roosevelt en fonction de divers paramètres.<br>
-Le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur Github : [lien externe vers Github](https://github.com/tajulien/MSBGD-SD701-BigDataMining) <br/>
-<br/>
+
 Pour mener à bien cette étude, les données ci-dessous ont été collectées. Deux niveaux de précision sont disponibles : heure par heure (h) ou bien par tranche horaire par jour-type par semestre (th/jt/s). Par exemple : de 7h30 à 9h30, le samedi, au premier semestre 2021. <br/>
 - [Qualité de l'air à la station Franklin Roosevelt sur la ligne 1 (2013-2021) (h)](https://dataratp.opendatasoft.com/explore/dataset/qualite-de-lair-mesuree-dans-la-station-franklin-d-roosevelt) (*) <br/>
-- [Qualité de l'air extérieur (2017-2021) (h)](https://data-airparif-asso.opendata.arcgis.com)
+- [Qualité de l'air extérieur (2017-2021) (h)](https://data-airparif-asso.opendata.arcgis.com) <br/>
 - [Données météo (2013-2021) (h)](https://www.infoclimat.fr/observations-meteo/temps-reel/paris-montsouris/07156.html) <br/>
-- [Validation aux bornes, représentant l'affluence en station (2015-2021) (th/jt/s)](https://data.iledefrance-mobilites.fr/explore/dataset/validations-sur-le-reseau-ferre-profils-horaires-par-jour-type-1er-sem/information/) <br/>	
+- [Validation aux bornes, représentant l'affluence en station (2015-2021) (th/jt/s)](https://data.iledefrance-mobilites.fr/explore/dataset/validations-sur-le-reseau-ferre-profils-horaires-par-jour-type-1er-sem/information/) <br/>
 - [Trafic ferroviaire, déterminé à partir des fréquences de passage des trains (S2 2021) (th/jt/s)](https://www.ratp.fr)
 
 <i>(*) Les données de 2 autres stations - Châtelet (ligne 4) et Auber (ligne A) - ont aussi été étudiées dans un premier temps puis écartées par la suite par manque de données.</i>
-
 <h1 id="ref2">2. Collecte des données</h1>
 
-- Les données de qualité de l'air en station et de validation aux bornes sont directement disponibles au format CSV.<br>
+- Les données de qualité de l'air en station, de qualité de l'air extérieur et de validation aux bornes sont directement disponibles au format CSV.<br>
 - Il n'existe a priori pas d'historique du trafic ferroviaire. Les données de mesure du trafic sont celles ayant cours au 2ème semestre 2021.<br>
-- Les historiques météo et de qualité de l'air extérieur ne sont pas directement accessibles, ce qui a nécessité un scrapping des données. Il s'agit de l'objet de cette partie.<br><br>
+- Les historiques météo ne sont pas directement accessibles, ce qui a nécessité un scrapping des données. Leur récupération fait l'objet du paragraphe suivant.<br>
 
-<div style="text-align: justify">
-Afin de pouvoir récupérer les données météos, nous nous sommes déjà penché tout d'abord sur la possibilité de recupérer via des API. Il existe plusieurs sites et parfois des très bons (type openweatherdatas) qui ont un historique complet sur chaque localisation. Malheureusement, la plupart du temps ces API n'étaient pas gratuites.
-C'est le moment où nous rappelons que le scraping c'est mal. Mais pour une utilisation scolaire non commerciale, cela fera l'affaire. Toutes les données seront supprimées après le projet. </div>	
+Il existe plusieurs API (ex : openweatherdatas) qui disposent d'un historique complet sur chaque localisation. Malheureusement ces API sont la plupart du temps payantes.
+Puisque l'utilisation des données est ici à visée strictement pédagogique, nous avons opté pour la solution du scraping du site [https://www.infoclimat.fr](https://www.infoclimat.fr).
 
-<div style="text-align: justify">
-Le scraping du site météo a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes). </div>
+Le contenu de l'algorithme est disponible dans le dossier : **3 - Scraping météo/**
 
-<p float="center">
-  <img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;"
-           src="Pictures/Partie_1/validation.png" width="300" />
-</p>
-<div style="text-align: center">
-* (désolé pour le zoom indispensable à la bonne visualisation de l'image) * </div>
+Ce scraping a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes).
+Nous avons donc procédé à un nettoyage des données. La plupart du temps, les difficultés de collecte étaient dues à une mise en forme hétérogène des différentes pages du site.
 
-<br/>
-Après avoir mis en place un algorithme de validation des données, nous avons pu nettoyer les données, qui la plupart du temps étaient dûes à mauvaise mise en forme non homogène du site (balises différentes entre une même ligne et colonne, ...).
-
-Nous avons par la suite exporter toutes les données sur une base de données MySQL car cela permettait de plus facilement traiter les données avec tout le monde (et cela nous permettait de travailler nos requêtes SQL).
-
+Nous avons par la suite exporté toutes les données sur une base de données MySQL afin de les traiter plus facilement par la suite :
 
 <p float="center">
   <img style="display: block; 
            margin-left: auto;
            margin-right: auto;"
-           src="Pictures/Partie_1/mariadb.png" width="300" />
+           src="0 - Pictures/Partie_1/mariadb.png" />
 </p>
 
-Nous avions par la suite tout l'historique météo sur Paris avec les différents indicateurs toutes les heures depuis le 1er janvier 2013 : <br/>
-- Pluie, température, vent, rafales, humidité, température ressentie, radiation, point de rosé, pression et visibilités.
-
-. 
-
-- <mark>Données qualité de l'air extérieur : ramener le dossier de Sara dans "Données brutes"</mark>
-- <mark>Mettre des screenshots des sites/du code/des résultats</mark>
 
 <h1 id="ref3">3. Nettoyage du jeu de données "qualité de l'air en station" et premières analyses</h1>
 
@@ -91,14 +79,14 @@ La collecte de ces mesures a commencé en 2013. Au total, le jeu de données con
 Avant d'amorcer l'exploitation du jeu de données à proprement parler, il est nécessaire d'estimer sa qualité, à savoir principalement le nombre de valeurs exploitables par station.
 
 <p float="center">
-  <img src="Pictures/Partie_1/null_param.png" width="300" />
-  <img src="Pictures/Partie_1/null_station.png" width="300" /> 
-  <img src="Pictures/Partie_1/null_year.png" width="300" />
+  <img src="0 - Pictures/Partie_1/null_param.png" width="300" />
+  <img src="0 - Pictures/Partie_1/null_station.png" width="300" /> 
+  <img src="0 - Pictures/Partie_1/null_year.png" width="300" />
 </p>
 
 <p float="center">
-  <img src="Pictures/Partie_1/null_station_param.png" width="450" />
-  <img src="Pictures/Partie_1/null_station_year.png" width="450" />
+  <img src="0 - Pictures/Partie_1/null_station_param.png" width="450" />
+  <img src="0 - Pictures/Partie_1/null_station_year.png" width="450" />
 </p>
 
 - 40% des valeurs à disposition pour la station Auber sont des valeurs nulles : il semblerait qu'à partir de 2018, les capteurs de cette station aient cessé de fonctionner.
@@ -109,8 +97,8 @@ Avant d'amorcer l'exploitation du jeu de données à proprement parler, il est n
 
 Valeurs moyennes des paramètres sur l'ensemble du jeu de données :
 <p float="left">
-	<img src="Pictures/Partie_1/moy_par_param.png" width="450" />
-	<img src="Pictures/Partie_1/moy_par_param_par_station.png" width="450" />
+	<img src="0 - Pictures/Partie_1/moy_par_param.png" width="450" />
+	<img src="0 - Pictures/Partie_1/moy_par_param_par_station.png" width="450" />
 </p>
 
 - La station Châtelet semble moins exposée au NO et au NO2 que les stations Auber et Franklin Roosevelt.
@@ -130,14 +118,14 @@ Dans l'ordre :
 L'objectif ici étant d'afficher l'évolution des paramètres indépendemment de leur valeur intrinsèque, les valeurs sont divisées par la moyenne, ce qui donne des courbes sans unité oscillant autour de 1.
 
 <p float="left">
-	<img src="Pictures/Partie_1/weekday_par_param.png" width="450" />
-	<img src="Pictures/Partie_1/weekend_par_param.png" width="450" />
-	<img src="Pictures/Partie_1/week_par_param.png" width="450" />
+	<img src="0 - Pictures/Partie_1/weekday_par_param.png" width="450" />
+	<img src="0 - Pictures/Partie_1/weekend_par_param.png" width="450" />
+	<img src="0 - Pictures/Partie_1/week_par_param.png" width="450" />
 </p>
 <p float="left">
-	<img src="Pictures/Partie_1/year_par_param.png" width="450" />
-	<img src="Pictures/Partie_1/years_par_param.png" width="450" />
-	<img src="Pictures/Partie_1/legend_param.png" width="70" />
+	<img src="0 - Pictures/Partie_1/year_par_param.png" width="450" />
+	<img src="0 - Pictures/Partie_1/years_par_param.png" width="450" />
+	<img src="0 - Pictures/Partie_1/legend_param.png" width="70" />
 </p>
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Variations à court terme : au cours d'une même journée et au cours de la semaine**
@@ -158,14 +146,14 @@ Les courbes ci-dessus laissent appraître, en moyenne sur les 3 stations, des cy
 Il peut être intéressant de vérifier si chacune des stations individuellement suit les mêmes patterns d'évolution. Les graphes ci-dessous représentent la comparaison des évolutions du paramètre NO sur les 3 stations (même échelle de temps que les graphes ci-dessus).
 
 <p float="left">
-	<img src="Pictures/Partie_1/weekday_par_station.png" width="450" />
-	<img src="Pictures/Partie_1/weekend_par_station.png" width="450" />
-	<img src="Pictures/Partie_1/week_par_station.png" width="450" />
+	<img src="0 - Pictures/Partie_1/weekday_par_station.png" width="450" />
+	<img src="0 - Pictures/Partie_1/weekend_par_station.png" width="450" />
+	<img src="0 - Pictures/Partie_1/week_par_station.png" width="450" />
 </p>
 <p float="left">
-	<img src="Pictures/Partie_1/year_par_station.png" width="450" />
-	<img src="Pictures/Partie_1/years_par_station.png" width="450" />
-	<img src="Pictures/Partie_1/legend_station.png" width="70" />
+	<img src="0 - Pictures/Partie_1/year_par_station.png" width="450" />
+	<img src="0 - Pictures/Partie_1/years_par_station.png" width="450" />
+	<img src="0 - Pictures/Partie_1/legend_station.png" width="70" />
 </p>
 
 En dehors des variations années après annnées qui présentent certaines incohérences, on remarque que toutes les variations listées dans la partie précédente sont bien communes aux 3 stations et relèvent donc de phénomènes à priori généralisables.
@@ -179,7 +167,7 @@ Pour éviter ce problème, on tente de simplifier le modèle et de se ramener à
 - Vecteurs journaliers contenant pour chaque paramètre sa valeur et sa variance, en moyennant ou non au préalable toutes les données sur les 3 stations.
 - Vecteurs journaliers divisés par la concentration moyenne journalière, dont on extrait la variance ainsi que l'horaire du pic de concentration de chaque variable. C'est cette approche qui s'est avérée être la plus efficace. Voici ci-dessous un extrait des 3 premiers vecteurs du jeu de données transformé.
 
-<img src="Pictures/Partie_2/vecteur_classification.png" width="800" />
+<img src="0 - Pictures/Partie_2/vecteur_classification.png" width="800" />
 
 C'est ce jeu de donnée retravaillé que l'on va utiliser dans les deux parties suivantes.
 
@@ -190,7 +178,7 @@ En effectuant un k-means sur des vecteurs tels qu'introduits précédemment, et 
 - La clusterisation correspond à la qualité jour ouvré / weekend dans 57.9% des cas.
 - On obtient la matrice de confusion suivane :
 
-<img src="Pictures/Partie_2/confusion_k_means.png" width="300" />
+<img src="0 - Pictures/Partie_2/confusion_k_means.png" width="300" />
 
 La capacité du kmeans à déterminé si des mesurs viennent d'un jour ouvré ou d'un jour du weekend est donc assez limitée. On pourrait tenter d'améliorer notre capacité de classification en adoptant un modèle supervisé.
 
@@ -206,7 +194,7 @@ On entraîne ensuite le modèle sur l'ensemble des données d'entraînement avec
 - f1-score : 68%
 - matrice de confusion :
 
-<img src="Pictures/Partie_2/confusion_k_voisins.png" width="300" />
+<img src="0 - Pictures/Partie_2/confusion_k_voisins.png" width="300" />
 
 Lors des tests effectués, on a remarqué que les performances étaient meilleures si on standardisait le jeu de données au préalable. Les résultats ci-dessus ont donc été obtenus avec des variables explicatives standardisées. Les performances du modèles sont globalement correctes.  
 
@@ -225,7 +213,7 @@ On se focalise sur un unique paramètre à la fois, mais la démarche est reprod
 
 Format du jeu de données injecté dans le modèle :
 
-<img src="Pictures/Partie_2/vecteur_prediction.png" width="250" />
+<img src="0 - Pictures/Partie_2/vecteur_prediction.png" width="250" />
 
 Les analyses préliminaires ont montré que l'évolution de la valeur des paramètres en fonction de l'heure du jour était strictement non linéaire. Nos connaissances en terme d'algorithme de régression non linéaire étant limitées, on utilise ici également l'algorithme des k-voisins, mais dans sa version régression et non classification.
 
@@ -233,7 +221,7 @@ Après division du jeu de donnés en un set d'entrainement et un set de test (33
 
 Courbe d'erreur de cross-validation en fonction du paramètre k :
 
-<img src="Pictures/Partie_2/cross_val_predicteur.png" width="450" />
+<img src="0 - Pictures/Partie_2/cross_val_predicteur.png" width="450" />
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Performances du modèle**
 
@@ -241,7 +229,7 @@ En prédiction sur le jeu de test, le modèle donne un coefficient de détermina
 
 Comparons les valeurs moyennes prédites par le modèle sur les différentes échelles de temps par rapport aux valeurs vraies :
 
-<img src="Pictures/Partie_2/comparaison_NO_pred_true_moyens.png" width="1350" />
+<img src="0 - Pictures/Partie_2/comparaison_NO_pred_true_moyens.png" width="1350" />
 
 On constate qu'en moyenne, le modèle semble plutôt bon. En revanche, si il présente un coefficient de détermination aussi faible, c'est qu'il n'est pas performant pour décrire les écarts de qualité de l'air d'un jour à l'autre, ce qui est normal car on n'a pas encore introduit de paramètres permettant par exemple de différencier deux lundis ou deux mardis.
 
@@ -249,7 +237,7 @@ On constate qu'en moyenne, le modèle semble plutôt bon. En revanche, si il pr�
 
 Jusqu'à présent, toutes les courbes de qualité de l'air présentées étaient des courbes moyennes obtenues à partir d'un grand nombre de valeur. Essayons maintenant de comparer l'évolution de la qualité de l'air au sein de la station Franklin Roosevelt sans moyenner les valeurs sur plusieurs jours. Par exemple, les courbes ci-dessous comparent les lundis 9 et 16 juin 2014.
 
-<img src="Pictures/Partie_3/comparaison_NO_9_16_juin_2014.png" width="450" />
+<img src="0 - Pictures/Partie_3/comparaison_NO_9_16_juin_2014.png" width="450" />
 
 On constate des écarts de qualité de l'air significatifs sur certaines plages horaires : par exemple autour de 4h du matin le 9 juin 2014, la concentration en NO est de plus de 45 µg/m3, alors qu'elle est de moins de 15 µg/m3 le 16 juin à la même heure. On constate un écart également significatif en fin de journée (35 µg/m3 VS 20 µg/m3).
 
@@ -264,26 +252,26 @@ Le fichier **4_data_ext_cleaning.ipynb** présente le processus de chargement et
 
 Les données retravaillées sont contenues dans 5 DataFrames différents :<br><br>
 <i><b>Qualité de l'air en station :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/fro.png"></h5><br>
+<h5 align=left><img src="0 - Pictures/Partie_4/fro.png"></h5><br>
 <i><b>Historique météo :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/meteo.png"></h5><br>
+<h5 align=left><img src="0 - Pictures/Partie_4/meteo.png"></h5><br>
 <i><b>Qualité de l'air extérieur :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/poll_ext.png"></h5>
+<h5 align=left><img src="0 - Pictures/Partie_4/poll_ext.png"></h5>
 Les valeurs affichées représentent la moyenne des mesures effectuées sur 3 stations (Paris 2, Paris 4 et Paris 6) en µg/m3<br><br>
 <i><b>Trafic ferroviaire :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/trafic.png"></h5>
+<h5 align=left><img src="0 - Pictures/Partie_4/trafic.png"></h5>
 Nombre de passages de trains théoriques en station sur l'heure précédente (ex : le dimanche, 24 trains sont passés entre 00:00 et 01:00)<br><br>
 <i><b>Affluence :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/val.png"></h5>
+<h5 align=left><img src="0 - Pictures/Partie_4/val.png"></h5>
 Taux de validation de la tranche horaire sur la journée-type (ex: les dimanches et jours fériés, pour la tranche horaire 10h30-16h30 (dont 11h fait partie), les validations représentent 1.46% du total de la journée-type)<br><br>
 
 ### &nbsp;&nbsp;&nbsp; **4.2. DataFrame global**
 
 <i><b>DataFrame "calendrier" permettant la fusion des jeux de données précédents :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/cal.png"></h5><br>
+<h5 align=left><img src="0 - Pictures/Partie_4/cal.png"></h5><br>
 
 <i><b>Infos du DataFrame global :</b></i>
-<h5 align=left><img src="Pictures/Partie_4/info.png"></h5><br>
+<h5 align=left><img src="0 - Pictures/Partie_4/info.png"></h5><br>
 
 Le DataFrame global une fois généré permet d'effectuer une analyse de corrélation.
 
@@ -297,14 +285,14 @@ De plus, les lignes présentant des valeurs manquantes ont été neutralisées, 
 
 L'image ci-dessous présente les résultats obtenus avec les 3 algorithmes :
 <p float="center">
-  <img src="Pictures/Partie_5/knn2017.png" width="300" />
+  <img src="0 - Pictures/Partie_5/knn2017.png" width="300" />
 </p>
 
 Ces résultats moyens poussent à découper l'analyse en tranches. Une approche retenue est celle d'une analyse semestrielle :
 
 <p float="center">
-  <img src="Pictures/Partie_5/sem1.png" width="300" />
-  <img src="Pictures/Partie_5/sem2.png" width="300" /> 
+  <img src="0 - Pictures/Partie_5/sem1.png" width="300" />
+  <img src="0 - Pictures/Partie_5/sem2.png" width="300" /> 
 </p>
 
 

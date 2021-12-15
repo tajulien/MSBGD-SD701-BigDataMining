@@ -1,0 +1,318 @@
+ERROR at index 449: 'mm/1h'
+        unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+449  2013mai19-17  20130119    17  11.6  mm/1h    7   20.9       89      NaN       19      9.8   1010.4        2.3
+ERROR at index 394: 'mm/1h'
+         unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+394  2013juin17-10  20130117    10  15.9  mm/1h   17   52.6       92      NaN       NaN    14.6   1009.1        2.7
+ERROR at index 624: '/998'
+            unique_id    date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+624  2014janvier27-00  /">998    00  3.2    0     9   24.8       88      0.7       NaN     1.4     /998          0
+ERROR at index 193: 'mm/1h'
+         unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+193  2014juin09-01  2014069    01  20.1  mm/1h   11   29.9       96       27       NaN    19.4   1016.4        3.6
+ERROR at index 188: 'mm/1h'
+            unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+188  2014juillet08-20  2014078    20  14.8  mm/1h    7   25.2       88      NaN       44     12.8   1015.8          2
+ERROR at index 160: 'mm/1h'
+         unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+160  2014aout07-16  2014087    16  20.8  mm/1h    2   18.4       94       28      131     19.8   1014.7         13
+ERROR at index 282: 'mm/1h'
+              unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+282  2015septembre12-18  20150912    18  17.7  mm/1h    7   20.5       93      NaN       NaN    16.6   1010.7        1.6
+ERROR at index 663: 'mm/1h'
+        unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+663  2016mai28-15  20160528    15  17.6  mm/1h   17   40.7       87      NaN      139     15.4   1011.7        1.7
+ERROR at index 303: 'mm/1h'
+         unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+303  2016juin13-15  20160613    15  17.3  mm/1h    7   24.1       68      NaN       NaN    11.3   1005.0         20
+ERROR at index 500: 'em">\n'
+            unique_id      date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+500  2017fevrier21-20  20170221    20  NaN     0   11   25.9       84      NaN       NaN  em">\n   1020.0         20
+ERROR at index 502: 'em">\n'
+            unique_id      date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+502  2017fevrier21-22  20170221    22  NaN     0   18   34.6       81      NaN       NaN  em">\n   1019.8         20
+ERROR at index 503: 'em">\n'
+            unique_id      date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+503  2017fevrier21-23  20170221    23  NaN     0   14   38.5       77      NaN       NaN  em">\n   1019.7         20
+ERROR at index 214: 'mm/1h'
+            unique_id     date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+214  2017juillet09-22  2017079    22  19.6  mm/1h   11   31.3       95      NaN       NaN    18.8   1011.1          5
+ERROR at index 229: 'mm/1h'
+         unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+229  2017aout10-13  20170810    13  13.1  mm/1h    7   16.2       91      NaN       56     11.7   1020.3        3.1
+ERROR at index 669: 'mm/1h'
+        unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+669  2018mai28-21  20180528    21  17.7  mm/1h    7   53.6       93      NaN       NaN    16.6   1015.4         14
+ERROR at index 694: 'mm/1h'
+        unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+694  2018mai29-22  20180529    22  16.9  mm/1h    7   46.1       93      NaN       NaN    15.8   1012.3          9
+ERROR at index 259: 'mm/1h'
+         unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+259  2018juin11-19  20180611    19  20.1  mm/1h   11   31.3       93     26.6       69     18.9   1007.9        2.9
+ERROR at index 96: 'hPa'
+            unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+96  2018novembre05-00  2018115    00  13.8    0     8     23       75      NaN       NaN     9.4     1004        hPa
+ERROR at index 109: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+109  2018novembre05-13  2018115    13  18.2    0     8     27       58      NaN      406      9.8   1004.8        hPa
+ERROR at index 110: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+110  2018novembre05-14  2018115    14  18.5    0    11   23.4       60      NaN      333     10.5   1004.0        hPa
+ERROR at index 111: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+111  2018novembre05-15  2018115    15  18.3    0    12   26.3       58      NaN      322      9.9   1003.7        hPa
+ERROR at index 112: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+112  2018novembre05-16  2018115    16  17.0    0    11   33.1       62      NaN      203      9.7   1003.8        hPa
+ERROR at index 113: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+113  2018novembre05-17  2018115    17  16.5    0     8   21.2       65      NaN       44      9.9   1003.7        hPa
+ERROR at index 114: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+114  2018novembre05-18  2018115    18  15.4    0     9   24.1       72      NaN       NaN    10.4   1003.9        hPa
+ERROR at index 115: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+115  2018novembre05-19  2018115    19  15.0    0     9   24.5       74      NaN       NaN    10.4   1004.0        hPa
+ERROR at index 116: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+116  2018novembre05-20  2018115    20  14.6    0     7   19.1       76      NaN       NaN    10.4   1003.7        hPa
+ERROR at index 117: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+117  2018novembre05-21  2018115    21  14.5    0    10   23.4       76      NaN       NaN    10.3   1003.8        hPa
+ERROR at index 118: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+118  2018novembre05-22  2018115    22  14.5    0     6   24.1       75      NaN       NaN    10.2   1003.8        hPa
+ERROR at index 119: 'hPa'
+             unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+119  2018novembre05-23  2018115    23  14.1    0     6   15.1       76      NaN       NaN     9.9   1003.7        hPa
+ERROR at index 97: 'em">\n'
+           unique_id    date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+97  2019janvier05-01  1039.3    01  4.4    0    16   38.2       73      NaN       NaN  em">\n   1039.3          >
+ERROR at index 97: '>'
+           unique_id    date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+97  2019janvier05-01  1039.3    01  4.4    0    16   38.2       73      NaN       NaN  em">\n   1039.3          >
+ERROR at index 98: '>'
+           unique_id    date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+98  2019janvier05-02  1039.6    02  4.3    0    14   39.2       72      NaN       NaN    -0.3   1039.6          >
+ERROR at index 90: 'hPa'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+90  2019juin04-18  2019064    18  21.3  2.5    25   65.2       79     26.8      108     17.5   1003.2        hPa
+ERROR at index 110: 'Pa'
+         unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+110  2019juin05-14  2019065    14  14.1  0.6    11     22       84      NaN       53     11.4   1008.5         Pa
+ERROR at index 133: 'Pa'
+         unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+133  2019juin06-13  2019066    13  17.5    0    14   33.5       58      NaN      775      9.1   1013.9         Pa
+ERROR at index 135: 'Pa'
+         unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+135  2019juin06-15  2019066    15  19.0    0    14   40.3       46      NaN      892      7.1   1014.0         Pa
+ERROR at index 217: 'Pa'
+         unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+217  2019juin10-01  20190610    01  12.3    0     4   11.2       72      NaN       NaN     7.4   1013.4         Pa
+ERROR at index 251: 'hPa'
+         unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+251  2019juin11-11  20190611    11  15.5    0     7     18       59      NaN      603      7.5   1012.0        hPa
+ERROR at index 169: '>'
+            unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+169  2019juillet08-01  2019078    01  17.4    0    22   46.4       52      NaN       NaN     7.4   1020.5          >
+ERROR at index 408: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+408  2020mai18-00  20200518    00  16.8    0     0     31       52      NaN       NaN     6.8   1025.2          >
+ERROR at index 431: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+431  2020mai18-23  20200518    23  18.3    0     0   25.2       48      NaN       NaN     7.1   1025.0          >
+ERROR at index 240: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+240  2020novembre11-00  20201111    00  10.5   NaN   11   25.6       90      NaN       NaN     8.9   1017.6         Pa
+ERROR at index 255: 'hPa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+255  2020novembre11-15  20201111    15  11.1   NaN   15   29.2       91      NaN       61      9.7   1021.5        hPa
+ERROR at index 256: 'hPa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+256  2020novembre11-16  20201111    16  11.5   NaN    6   23.8       88      NaN       33      9.6   1021.1        hPa
+ERROR at index 257: 'hPa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+257  2020novembre11-17  20201111    17  11.6   NaN    9   20.5       85      NaN       22      9.2   1020.9        hPa
+ERROR at index 258: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+258  2020novembre11-18  20201111    18  11.1   NaN    7   20.2       87      NaN       NaN       9   1020.4         Pa
+ERROR at index 259: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+259  2020novembre11-19  20201111    19  11.1   NaN   10     22       88      NaN       NaN     9.2   1020.1         Pa
+ERROR at index 260: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+260  2020novembre11-20  20201111    20  11.1   NaN   12   26.3       88      NaN       NaN     9.2   1019.5         Pa
+ERROR at index 261: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+261  2020novembre11-21  20201111    21  10.9   NaN   10   23.8       89      NaN       NaN     9.2   1019.0         Pa
+ERROR at index 262: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+262  2020novembre11-22  20201111    22  11.0   NaN   13   25.2       90      NaN       NaN     9.4   1018.4         Pa
+ERROR at index 263: 'Pa'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+263  2020novembre11-23  20201111    23  10.7   NaN   14     32       89      NaN       NaN     8.9   1018.1         Pa
+ERROR at index 274: '>'
+             unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+274  2020novembre12-10  20201112    10  10.6   NaN   12   31.3       81      NaN      108      7.4   1020.7          >
+ERROR at index 8: ''
+          unique_id      date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+8  2021janvier01-08  20210101    08  NaN          4     18       85        1       NaN    -0.6   1009.9         16
+ERROR at index 42: ''
+           unique_id     date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+42  2021janvier02-18  2021012    18  NaN          7   14.4       80      1.9       NaN     0.7   1014.6         10
+ERROR at index 43: ''
+           unique_id     date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+43  2021janvier02-19  2021012    19  NaN          4   10.8       81      3.1       NaN     0.6   1014.7          9
+ERROR at index 192: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+192  2021mai09-00  2021059    00  17.4     0    6   18.7       75      NaN       NaN      13    998.7         n>
+ERROR at index 193: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+193  2021mai09-01  2021059    01  17.7    0    21   40.7       68      NaN       NaN    11.7    999.3         n>
+ERROR at index 200: '>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+200  2021mai09-08  2021059    08  15.7   0.2   13   29.9       82      NaN       33     12.6   1001.8          >
+ERROR at index 201: '>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+201  2021mai09-09  2021059    09  17.6  0.4    15   34.9       74      NaN       NaN      13   1001.8          >
+ERROR at index 202: '>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+202  2021mai09-10  2021059    10  19.2    0    15   39.6       67      NaN       NaN      13   1001.8          >
+ERROR at index 203: '>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+203  2021mai09-11  2021059    11  21.3    0    16   41.8       60      NaN      444     13.3   1001.7          >
+ERROR at index 204: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+204  2021mai09-12  2021059    12  23.7    0    14   38.2       54      NaN      594     13.9   1001.4         n>
+ERROR at index 205: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+205  2021mai09-13  2021059    13  25.5    0    15   42.1       49      NaN      745       14   1000.6         n>
+ERROR at index 206: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+206  2021mai09-14  2021059    14  26.5    0    21   44.3       43      NaN      756       13   1000.2         n>
+ERROR at index 207: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+207  2021mai09-15  2021059    15  27.1    0    22   56.9       39      NaN      850       12    999.9         n>
+ERROR at index 208: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+208  2021mai09-16  2021059    16  27.2    0    20   45.4       37      NaN      695     11.2    999.4         n>
+ERROR at index 209: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+209  2021mai09-17  2021059    17  25.8    0    16     58       37      NaN      297       10    999.4         n>
+ERROR at index 210: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+210  2021mai09-18  2021059    18  21.8     0   18     72       53      NaN      153     11.8   1000.3         n>
+ERROR at index 211: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+211  2021mai09-19  2021059    19  19.4   0.6   11   60.1       72      NaN      100     14.2   1000.6         n>
+ERROR at index 212: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+212  2021mai09-20  2021059    20  19.5     0   13     36       59      NaN       97     11.2    999.9         n>
+ERROR at index 213: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+213  2021mai09-21  2021059    21  19.1    0    11   41.8       62      NaN       17     11.7    999.7         n>
+ERROR at index 214: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+214  2021mai09-22  2021059    22  18.1     0    7     23       66      NaN       NaN    11.7    999.7         n>
+ERROR at index 215: 'n>'
+        unique_id     date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+215  2021mai09-23  2021059    23  17.5     0    6   15.8       71      NaN       NaN    12.2    999.4         n>
+ERROR at index 216: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+216  2021mai10-00  20210510    00  12.0    0     6   16.6       77      NaN       NaN     8.1   1008.4         Pa
+ERROR at index 217: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+217  2021mai10-01  20210510    01  11.5    0     6   16.6       81      NaN       NaN     8.4   1008.5         Pa
+ERROR at index 218: 'pan>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+218  2021mai10-02  20210510    02  15.6   0.4   15   57.6       82      NaN       NaN    12.5    999.8       pan>
+ERROR at index 219: '>hPa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+219  2021mai10-03  20210510    03  14.5   0.8   15   34.9       88      NaN       NaN    12.5   1000.6       >hPa
+ERROR at index 220: '>hPa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+220  2021mai10-04  20210510    04  14.1   0.4   17   35.6       91      NaN       NaN    12.6   1000.6       >hPa
+ERROR at index 221: 'hPa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+221  2021mai10-05  20210510    05  13.9   0.2   14   34.6       91      NaN       NaN    12.4   1001.5        hPa
+ERROR at index 222: 'hPa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+222  2021mai10-06  20210510    06  13.2   2.6   16   36.4       87      NaN       NaN    11.1   1002.5        hPa
+ERROR at index 223: 'hPa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+223  2021mai10-07  20210510    07  12.0    0    13   45.7       82      NaN       NaN       9   1003.8        hPa
+ERROR at index 224: 'hPa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+224  2021mai10-08  20210510    08  12.3    0    12   30.6       84      NaN       28      9.7   1004.8        hPa
+ERROR at index 225: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+225  2021mai10-09  20210510    09  13.0    0    14   37.1       80      NaN       NaN     9.7   1005.9         Pa
+ERROR at index 226: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+226  2021mai10-10  20210510    10  14.2    0    19   45.7       70      NaN       NaN     8.8   1006.3         Pa
+ERROR at index 227: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+227  2021mai10-11  20210510    11  15.7    0    18   43.6       68      NaN      328      9.8   1006.7         Pa
+ERROR at index 228: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+228  2021mai10-12  20210510    12  16.5    0    20     50       57      NaN      494        8   1007.2         Pa
+ERROR at index 229: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+229  2021mai10-13  20210510    13  17.6    0    19   44.6       52      NaN      542      7.6   1007.3         Pa
+ERROR at index 230: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+230  2021mai10-14  20210510    14  19.8    0    19   52.2       51      NaN      722      9.3   1007.3         Pa
+ERROR at index 231: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+231  2021mai10-15  20210510    15  19.7    0    19   43.2       46      NaN      789      7.7   1007.3         Pa
+ERROR at index 232: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+232  2021mai10-16  20210510    16  18.6    0    13     45       46      NaN      711      6.7   1007.1         Pa
+ERROR at index 233: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+233  2021mai10-17  20210510    17  18.8     0   12   46.8       52      NaN      275      8.8   1007.0         Pa
+ERROR at index 234: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+234  2021mai10-18  20210510    18  19.5    0    15   43.9       51      NaN      600        9   1007.1         Pa
+ERROR at index 235: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+235  2021mai10-19  20210510    19  15.9    0    14   34.9       60      NaN      306      8.1   1007.8         Pa
+ERROR at index 236: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+236  2021mai10-20  20210510    20  17.4    0    14   27.4       56      NaN      256      8.5   1007.7         Pa
+ERROR at index 237: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+237  2021mai10-21  20210510    21  14.8    0     5   28.8       68      NaN      183      8.9   1007.6         Pa
+ERROR at index 238: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+238  2021mai10-22  20210510    22  13.3    0     7   16.9       71      NaN        8      8.1   1008.4         Pa
+ERROR at index 239: 'Pa'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+239  2021mai10-23  20210510    23  12.6    0     8     18       75      NaN       NaN     8.3   1008.2         Pa
+ERROR at index 252: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+252  2021mai11-12  20210511    12  14.6   0.2    9   19.4       69      NaN      144      8.9   1009.8          >
+ERROR at index 253: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+253  2021mai11-13  20210511    13  14.8     0   13   29.2       72      NaN      211      9.8   1009.8          >
+ERROR at index 254: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+254  2021mai11-14  20210511    14  14.8     0    7     27       59      NaN      186      6.8   1010.2          >
+ERROR at index 255: 'an>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+255  2021mai11-15  20210511    15  14.5   0.4   10   30.2       66      NaN      211      8.3   1010.6        an>
+ERROR at index 256: 'an>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+256  2021mai11-16  20210511    16  15.0    0    19   37.4       57      NaN      500      6.5   1011.0        an>
+ERROR at index 257: 'an>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+257  2021mai11-17  20210511    17  14.4     0   14   38.5       56      NaN      317      5.8   1011.3        an>
+ERROR at index 258: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+258  2021mai11-18  20210511    18  15.1    0    12   27.4       58      NaN      278      6.8   1011.6          >
+ERROR at index 259: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+259  2021mai11-19  20210511    19  15.9    0    12   31.3       60      NaN      383      8.1   1011.6          >
+ERROR at index 260: '>'
+        unique_id      date heure  temp pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
+260  2021mai11-20  20210511    20  16.2    0    10   32.4       50      NaN      300      5.8   1011.9          >
