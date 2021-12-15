@@ -1,9 +1,0 @@
-ERROR at index 449: 'mm/1h'
-        unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
-449  2013mai19-17  20130119    17  11.6  mm/1h    7   20.9       89      NaN       19      9.8   1010.4        2.3
-ERROR at index 394: 'mm/1h'
-         unique_id      date heure  temp  pluie vent rafale humidite ressenti radiation pt_rose pression visibilite
-394  2013juin17-10  20130117    10  15.9  mm/1h   17   52.6       92      NaN       NaN    14.6   1009.1        2.7
-ERROR at index 336: 'g" style="height:12px" title="+0.7 hPa/3h"/>'
-         unique_id      date heure temp pluie vent rafale humidite ressenti radiation pt_rose pression                                    visibilite
-336  2013juin15-00  20130115    00  NaN     0    7   20.4       62      NaN       NaN     7.6   1017.1  g" style="height:12px" title="+0.7 hPa/3h"/>
