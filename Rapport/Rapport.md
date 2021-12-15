@@ -17,7 +17,7 @@
 <h1 id="ref1">1. Présentation du projet</h1>
 
 Le but de ce projet est d'évaluer la possibilité de conduire une analyse prédictive du niveau de pollution à la station de métro Franklin Roosevelt en fonction de divers paramètres.<br>
-Le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur Github : <mark>LIEN</mark><br><br>
+Le présent rapport est un condensé des résultats obtenus. Le code complet des différentes parties est disponible sur Github : [lien externe vers Github](https://github.com/tajulien/MSBGD-SD701-BigDataMining) <br/>
 Pour mener à bien cette étude, les données ci-dessous ont été collectées. Deux niveaux de précision sont disponibles : heure par heure (h) ou bien par tranche horaire par jour-type par semestre (th/jt/s). Par exemple : de 7h30 à 9h30, le samedi, au premier semestre 2021.
 - [Qualité de l'air à la station Franklin Roosevelt sur la ligne 1 (2013-2021) (h)](https://dataratp.opendatasoft.com/explore/dataset/qualite-de-lair-mesuree-dans-la-station-franklin-d-roosevelt) (*)
 - [Qualité de l'air extérieur (2017-2021) (h)](https://data-airparif-asso.opendata.arcgis.com)
@@ -38,12 +38,24 @@ C'est le moment où nous rappelons que le scraping c'est mal. Mais pour une util
 
 Le scraping du site météo a été réalisé dans la fourchette du 1er janvier 2013 au 7 septembre 2021. La plupart des données furent compliquées à retrouver avec plus de 15 000 valeurs invalides (pour environ 70 000 lignes et 15 colonnes).
 
+<p float="center">
+  <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;"
+           src="Pictures/Partie_1/validation.png" width="300" />
+</p>
+
 Après avoir mis en place un algorithme de validation des données, nous avons pu nettoyer les données, qui la plupart du temps étaient dûes à mauvaise mise en forme non homogène du site.
 
 Nous avons par la suite exporter toutes les données sur une base de données MySQL car cela permettait de plus facilement traiter les données avec tout le monde (et cela nous permettait de travailler nos requêtes SQL).
 
+*(désolé pour le zoom indispensable à la bonne visualisation de l'image)*
+
 <p float="center">
-  <img src="Pictures/Partie_1/mariadb.png" width="300" />
+  <img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;"
+           src="Pictures/Partie_1/mariadb.png" width="300" />
 </p>
 
 Nous avions par la suite tout l'historique météo sur Paris avec les différentes indicateurs :
